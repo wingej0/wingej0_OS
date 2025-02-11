@@ -30,10 +30,13 @@
     annotator
     ffmpeg
     vscode
+    xwayland
 
     tela-circle-icon-theme
     cosmic-ext-applet-clipboard-manager
   ];
+
+  programs.xwayland.enable = true;
 
   environment.sessionVariables = {
     COSMIC_DATA_CONTROL_ENABLED = "1"; 

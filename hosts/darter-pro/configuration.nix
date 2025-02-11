@@ -23,6 +23,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = [ "ecryptfs" ];
 
   # boot.initrd.postDeviceCommands = lib.mkAfter ''
   #   mkdir /mnt
@@ -96,21 +97,7 @@
   programs.firefox.enable = true;
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim 
-    git
-    vscode
-    gnome-keyring
-    seahorse
-  ];
-
-  programs.seahorse.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.wingej0.enableGnomeKeyring = true;
-  programs.ssh.askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
-
+  
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

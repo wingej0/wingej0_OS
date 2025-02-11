@@ -27,7 +27,7 @@
             upersonal = "sudo umount cloud/personal";
             work = "rclone mount work: cloud/work --daemon";
             uwork = "sudo umount cloud/work";
-            private = "sudo mount -t ecryptfs Pictures/.backup Pictures/backup -o ecryptfs_cipher=aes -o ecryptfs_key_bytes=16 -o ecryptfs_unlink_sigs -o ecryptfs_fnek_sig=de0c23f0827ccfe3 -o ecryptfs_sig=de0c23f0827ccfe3";
+            private = "sudo mount -t ecryptfs Pictures/backup Pictures/backup -o ecryptfs_cipher=aes -o ecryptfs_key_bytes=16 -o ecryptfs_unlink_sigs -o ecryptfs_fnek_sig=de0c23f0827ccfe3 -o ecryptfs_sig=de0c23f0827ccfe3";
             uprivate = "sudo umount Pictures/backup";       
         };
     };
