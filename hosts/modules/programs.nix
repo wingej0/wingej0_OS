@@ -31,8 +31,10 @@
     ffmpeg
     vscode
     xwayland
+    vivaldi
+    xdg-desktop-portal-gtk
 
-    tela-circle-icon-theme
+    papirus-folders
     cosmic-ext-applet-clipboard-manager
   ];
 
@@ -40,6 +42,16 @@
 
   environment.sessionVariables = {
     COSMIC_DATA_CONTROL_ENABLED = "1"; 
+    XCURSOR_THEME = "FossaCursors";
+    XCURSOR_SIZE = 24;
+  };
+
+  xdg.portal = {
+    enable = true;
+    config.common.default = "*";
+    extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+    ];
   };
 
   programs.seahorse.enable = true;
