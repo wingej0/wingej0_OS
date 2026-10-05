@@ -5,6 +5,6 @@
     en-croissant
     stockfish
     lc0  
-    retroarch
+    retroarch # This will likely need to move to home-manager
   ];
 }

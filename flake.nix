@@ -1,6 +1,9 @@
 {
 	inputs = {
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+		# Sidra Music Player
+		sidra.url = "github:wimpysworld/sidra";
 	};
 
 	outputs = { nixpkgs, ... } @ inputs:
