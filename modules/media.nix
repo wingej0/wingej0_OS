@@ -9,6 +9,9 @@
     annotator
     ffmpeg
     loupe
+    kooha
+    gnome-podcasts
+    cozy
 
     # Sidra music player installed from flake input
     inputs.sidra.packages.${pkgs.stdenv.hostPlatform.system}.default

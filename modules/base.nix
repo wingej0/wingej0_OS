@@ -18,5 +18,10 @@
         yazi
         btop
         bat
+        kitty
+        ripgrep
+        dust 
+        zoxide
+        remmina
     ];
 }

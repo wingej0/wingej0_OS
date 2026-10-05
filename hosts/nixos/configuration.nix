@@ -28,7 +28,7 @@
   users.users."wingej0" = {
     isNormalUser = true;
     description = "Jeff Winget";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
     packages = with pkgs; [
     #  thunderbird
     ];
