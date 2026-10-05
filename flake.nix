@@ -3,7 +3,10 @@
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
 		# Sidra Music Player
-		sidra.url = "github:wimpysworld/sidra";
+		sidra = {
+			url = "github:wimpysworld/sidra";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
 	outputs = { nixpkgs, ... } @ inputs:
