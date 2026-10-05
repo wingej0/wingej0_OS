@@ -18,8 +18,5 @@
         yazi
         btop
         bat
-        zed-editor
-        vscode-fhs
-        google-chrome
     ];
 }
