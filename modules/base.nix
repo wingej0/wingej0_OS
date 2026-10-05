@@ -20,8 +20,7 @@
         bat
         kitty
         ripgrep
-        dust 
+        dust
         zoxide
-        remmina
     ];
 }

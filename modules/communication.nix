@@ -9,5 +9,6 @@
     mattermost-desktop
     caprine
     zoom-us
+    remmina
   ];
 }
