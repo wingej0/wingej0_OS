@@ -10,6 +10,19 @@
     # Enable networking
     networking.networkmanager.enable = true;
 
+    # Enable bluetooth
+    hardware.bluetooth = {
+        enable = true;
+        powerOnBoot = true;
+    };
+
+    # Compressed swap in RAM
+    zramSwap = {
+        enable = true;
+        algorithm = "zstd";
+        memoryPercent = 50;
+    };
+
     # Set your time zone.
     time.timeZone = "America/Denver";    
 
