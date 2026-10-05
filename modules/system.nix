@@ -20,7 +20,7 @@
     zramSwap = {
         enable = true;
         algorithm = "zstd";
-        memoryPercent = 50;
+        memoryPercent = 25;
     };
 
     # Set your time zone.
