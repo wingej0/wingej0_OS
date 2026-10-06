@@ -1,88 +1,91 @@
 { config, pkgs, ... }:
 {
-    # Use the systemd-boot EFI boot loader.
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-    # Kernel
-    boot.kernelPackages = pkgs.linuxPackages_zen;
+  # Kernel
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
-    # Enable networking
-    networking.networkmanager.enable = true;
+  # Enable networking
+  networking.networkmanager.enable = true;
 
-    # Enable bluetooth
-    hardware.bluetooth = {
-        enable = true;
-        powerOnBoot = true;
+  # Enable bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+  # Compressed swap in RAM
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 25;
+  };
+
+  # Keep the last 10 versions in the boot menu
+  boot.loader.systemd-boot.configurationLimit = 10;
+
+  programs.nh = {
+    enable = true;
+    flake = "/home/wingej0/.dotfiles";
+    clean = {
+      enable = true;
+      extraArgs = "--keep-since 14d --keep 10";
     };
+  };
 
-    # Compressed swap in RAM
-    zramSwap = {
-        enable = true;
-        algorithm = "zstd";
-        memoryPercent = 25;
-    };
+  nix.settings.auto-optimise-store = true;
 
-    # Keep the last 10 versions in the boot menu
-    boot.loader.systemd-boot.configurationLimit = 10;
+  # Set your time zone.
+  time.timeZone = "America/Denver";
 
-    programs.nh = {
-        enable = true;
-        flake = "/home/wingej0/.dotfiles";
-        clean = {
-            enable = true;
-            extraArgs = "--keep-since 14d --keep 10";
-        };
-    };
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
 
-    nix.settings.auto-optimise-store = true;
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
+  };
 
-    # Set your time zone.
-    time.timeZone = "America/Denver";    
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
 
-    # Select internationalisation properties.
-    i18n.defaultLocale = "en_US.UTF-8";
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+  };
 
-    i18n.extraLocaleSettings = {
-        LC_ADDRESS = "en_US.UTF-8";
-        LC_IDENTIFICATION = "en_US.UTF-8";
-        LC_MEASUREMENT = "en_US.UTF-8";
-        LC_MONETARY = "en_US.UTF-8";
-        LC_NAME = "en_US.UTF-8";
-        LC_NUMERIC = "en_US.UTF-8";
-        LC_PAPER = "en_US.UTF-8";
-        LC_TELEPHONE = "en_US.UTF-8";
-        LC_TIME = "en_US.UTF-8";
-    };
+  # Enable sound with pipewire.
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    # jack.enable = true;
+  };
 
-    # Configure keymap in X11
-    services.xserver.xkb = {
-        layout = "us";
-        variant = "";
-    };
+  # Enable flakes
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
-    # Enable CUPS to print documents.
-    services.printing.enable = true;
-    services.avahi = {
-        enable = true;
-        nssmdns4 = true;
-    };
-
-    # Enable sound with pipewire.
-    services.pulseaudio.enable = false;
-    security.rtkit.enable = true;
-    services.pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-        # If you want to use JACK applications, uncomment this
-        # jack.enable = true;
-    };
-
-    # Enable flakes
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    
-    # Allow unfree packages
-    nixpkgs.config.allowUnfree = true;
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 }
