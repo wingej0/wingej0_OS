@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 {
     imports = [
-        ./system/zsh.nix
+        ./system
+        ./programs
     ];
 
     home.file = {

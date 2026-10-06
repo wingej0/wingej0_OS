@@ -41,8 +41,4 @@
     # Install extra tools
     programs.zoxide.enable = true;
     programs.fzf.enable = true;
-
-    programs.oh-my-posh = {
-        enable = true;
-    };
 }
