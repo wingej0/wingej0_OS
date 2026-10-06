@@ -35,5 +35,10 @@
         initContent = ''
             fastfetch
         '';
+
     };
+
+    # Install extra tools
+    programs.zoxide.enable = true;
+    programs.fzf.enable = true;
 }
