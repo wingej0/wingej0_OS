@@ -18,7 +18,6 @@
             imports = [ ../home/home.nix ];
             programs.home-manager.enable = true;
             home = {
-                stateVersion = "26.05";
                 username = "${username}";
                 homeDirectory = "/home/${username}";
             };
