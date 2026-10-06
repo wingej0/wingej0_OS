@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 {
     environment.systemPackages = with pkgs; [
-        zsh
         vim
         wget
         git
@@ -9,7 +8,6 @@
         htop
         acpi
         killall
-        fzf
         fastfetch
         veracrypt
         gparted
@@ -21,6 +19,5 @@
         kitty
         ripgrep
         dust
-        zoxide
     ];
 }
