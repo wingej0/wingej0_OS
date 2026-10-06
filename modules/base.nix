@@ -4,7 +4,6 @@
         vim
         wget
         git
-        gh
         htop
         acpi
         killall

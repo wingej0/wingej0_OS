@@ -26,12 +26,15 @@
     # Keep the last 10 versions in the boot menu
     boot.loader.systemd-boot.configurationLimit = 10;
 
-    # Clean up the nix store weekly
-    nix.gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 14d";
+    programs.nh = {
+        enable = true;
+        flake = "/home/wingej0/.dotfiles";
+        clean = {
+            enable = true;
+            extraArgs = "--keep-since 14d --keep 10";
+        };
     };
+
     nix.settings.auto-optimise-store = true;
 
     # Set your time zone.
