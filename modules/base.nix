@@ -10,7 +10,6 @@
         killall
         veracrypt
         gparted
-        bibata-cursors
         eza
         yazi
         btop
