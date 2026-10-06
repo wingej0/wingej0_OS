@@ -17,6 +17,7 @@
 				./../modules/shells.nix
 				./../modules/system76.nix
 				./../modules/virtualization.nix
+				./../modules/users.nix
 			]
 		else
 			[];
