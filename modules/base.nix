@@ -8,7 +8,6 @@
         htop
         acpi
         killall
-        fastfetch
         veracrypt
         gparted
         bibata-cursors
@@ -16,7 +15,6 @@
         yazi
         btop
         bat
-        kitty
         ripgrep
         dust
     ];
