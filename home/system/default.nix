@@ -5,5 +5,6 @@
         ./oh-my-posh.nix
         ./fastfetch.nix
         ./gtk.nix
+        ./direnv.nix
     ];
 }
