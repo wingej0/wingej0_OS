@@ -1,9 +1,9 @@
 { hostname, ... }:
 {
   imports =
-    if hostname == "nixos" then
+    if hostname == "darter-pro" then
       [
-        ./nixos/configuration.nix
+        ./darter-pro/configuration.nix
         ./../modules/system.nix
         ./../modules/base.nix
         ./../modules/ai.nix

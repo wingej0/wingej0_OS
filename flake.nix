@@ -20,11 +20,11 @@
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
+        darter-pro = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
             username = "wingej0";
-            hostname = "nixos";
+            hostname = "darter-pro";
           };
           modules = [
             ./hosts

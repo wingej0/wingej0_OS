@@ -38,28 +38,28 @@
       tab_bar_style = "powerline";
       tab_bar_align = "left";
 
-      # Everforest Dark Hard, matches cosmic-term
-      background = "#272E33";
-      foreground = "#D3C6AA";
-      cursor = "#D3C6AA";
+      # Flexoki - stephango.com/flexoki
+      background = "#100F0F";
+      foreground = "#CECDC3";
+      cursor = "#CECDC3";
 
-      color0 = "#414B50";
-      color1 = "#E67E80";
-      color2 = "#A7C080";
-      color3 = "#DBBC7F";
-      color4 = "#7FBBB3";
-      color5 = "#D699B6";
-      color6 = "#83C092";
-      color7 = "#D3C6AA";
+      color0 = "#100F0F";
+      color1 = "#AF3029";
+      color2 = "#66800B";
+      color3 = "#AD8301";
+      color4 = "#205EA6";
+      color5 = "#A02F6F";
+      color6 = "#24837B";
+      color7 = "#878580";
 
-      color8 = "#475258";
-      color9 = "#E67E80";
-      color10 = "#A7C080";
-      color11 = "#DBBC7F";
-      color12 = "#7FBBB3";
-      color13 = "#D699B6";
-      color14 = "#83C092";
-      color15 = "#D3C6AA";
+      color8 = "#6F6E69";
+      color9 = "#D14D41";
+      color10 = "#879A39";
+      color11 = "#D0A215";
+      color12 = "#4385BE";
+      color13 = "#CE5D97";
+      color14 = "#3AA99F";
+      color15 = "#CECDC3";
     };
 
     keybindings = {

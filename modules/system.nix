@@ -7,6 +7,9 @@
   # Kernel
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
+  # Set default sleep state to deep sleep
+  boot.kernelParams = [ "mem_sleep_default=deep" ];
+
   # Enable networking
   networking.networkmanager.enable = true;
 
