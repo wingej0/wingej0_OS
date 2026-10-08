@@ -15,7 +15,7 @@
       "anytype"
       "dev.zed.Zed"
       "kitty"
-      "kooha"
+      "io.github.seadve.Kooha"
       "com.obsproject.Studio"
       "sidra"
       "com.system76.CosmicSettings"
