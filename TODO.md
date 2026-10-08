@@ -7,13 +7,15 @@
       into `hosts/<host>/default.nix`, and delete `hosts/default.nix`.
       If renaming the host (e.g. `nixos` → `darter`), do it here: the attribute in `flake.nix`
       and the `hosts/<host>/` folder. The first rebuild after a rename needs `.#<newname>`.
-- [ ] **One module per desktop**: `modules/desktops/{pantheon,cosmic,gnome,qtile}.nix`,
-      imported by the host. Move `services.desktopManager.pantheon.enable` out of
-      `hosts/nixos/configuration.nix`.
+- [x] **One module per desktop**: `desktop = "<name>"` in `flake.nix` selects
+      `modules/desktops/<name>.nix` and `home/desktops/<name>/`. COSMIC is done.
+- [ ] **Adding more desktops** (Pantheon, GNOME, Qtile, ...):
   - Window managers like Qtile need `services.gnome.gnome-keyring.enable = true;`
     (Mailspring and Mattermost store credentials in the keyring).
   - If two desktops conflict (e.g. GNOME + Pantheon, GNOME + KDE), use `specialisation`s
-    for separate boot entries instead of enabling both.
+    for separate boot entries instead of enabling both. A specialisation can't change
+    `specialArgs`, so that would mean switching to an option (e.g. `my.desktop`) with
+    `lib.mkIf` in each desktop module.
   - Check the cursor theme on each desktop. KDE Plasma ignores it and needs its own setting;
     Hyprland/Sway need `home.pointerCursor.hyprcursor` / `.sway`.
 
