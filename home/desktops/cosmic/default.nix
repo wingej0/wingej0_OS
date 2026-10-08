@@ -6,6 +6,7 @@
     ./appearance.nix
     ./compositor.nix
     ./idle.nix
+    ./panels.nix
     ./shortcuts.nix
   ];
 
