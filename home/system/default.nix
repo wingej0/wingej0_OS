@@ -6,5 +6,6 @@
     ./fastfetch.nix
     ./gtk.nix
     ./direnv.nix
+    ./qt.nix
   ];
 }

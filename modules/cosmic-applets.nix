@@ -8,6 +8,6 @@
   environment.systemPackages = with pkgs; [
     # cosmic
     cosmic-ext-tweaks
-    inputs.cosmic-applets-collection.packages."${pkgs.system}".default
+    inputs.cosmic-applets-collection.packages."${pkgs.stdenv.hostPlatform.system}".default
   ];
 }
