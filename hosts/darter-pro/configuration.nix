@@ -14,6 +14,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./data-drive.nix
+    ./displaylink.nix
   ];
 
   networking.hostName = hostname; # Define your hostname.
