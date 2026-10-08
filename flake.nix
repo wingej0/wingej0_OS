@@ -8,6 +8,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Cosmic Applets
+    cosmic-applets-collection.url = "github:wingej0/ext-cosmic-applets-flake";
+
     # Sidra Music Player
     sidra = {
       url = "github:wimpysworld/sidra";
