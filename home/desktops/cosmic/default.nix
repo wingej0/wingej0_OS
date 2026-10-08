@@ -4,6 +4,8 @@
     # Adds the wayland.desktopManager.cosmic options
     inputs.cosmic-manager.homeManagerModules.cosmic-manager
     ./appearance.nix
+    ./applets.nix
+    ./apps.nix
     ./compositor.nix
     ./idle.nix
     ./panels.nix
