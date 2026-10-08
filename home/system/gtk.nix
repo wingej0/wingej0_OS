@@ -1,4 +1,15 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+let
+  flexoki-gtk = pkgs.runCommand "flexoki-gtk-theme" { } ''
+    mkdir -p $out/share/themes
+    cp -r ${inputs.flexoki}/gtk $out/share/themes/flexoki
+  '';
+in
 {
   # Cursor theme (replaces environment.d, gtk settings.ini and .Xresources)
   home.pointerCursor = {
@@ -21,13 +32,7 @@
     enable = true;
     gtk3 = {
       extraConfig = {
-        gtk-application-prefer-dark-theme = 0;
-      };
-    };
-
-    gtk4 = {
-      extraConfig = {
-        gtk-application-prefer-dark-theme = 0;
+        gtk-application-prefer-dark-theme = 1;
       };
     };
 
@@ -38,6 +43,7 @@
 
     theme = {
       name = "flexoki";
+      package = flexoki-gtk;
     };
 
     iconTheme = {

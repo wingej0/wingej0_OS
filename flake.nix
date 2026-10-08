@@ -16,6 +16,12 @@
       url = "github:wimpysworld/sidra";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Flexoki GTK Theme
+    flexoki = {
+      url = "github:kepano/flexoki";
+      flake = false;
+    };
   };
 
   outputs =
