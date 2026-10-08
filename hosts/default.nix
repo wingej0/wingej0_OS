@@ -18,7 +18,7 @@
         ./../modules/system76.nix
         ./../modules/virtualization.nix
         ./../modules/users.nix
-        ./../modules/cosmic-applets.nix
+        ./../modules/desktops
       ]
     else
       [ ];

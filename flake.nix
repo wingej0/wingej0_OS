@@ -43,6 +43,7 @@
             inherit inputs;
             username = "wingej0";
             hostname = "darter-pro";
+            desktop = "cosmic";
           };
           modules = [
             ./hosts

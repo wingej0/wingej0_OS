@@ -23,12 +23,6 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable the COSMIC login manager
-  services.displayManager.cosmic-greeter.enable = true;
-
-  # Enable the COSMIC desktop environment
-  services.desktopManager.cosmic.enable = true;
-
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 

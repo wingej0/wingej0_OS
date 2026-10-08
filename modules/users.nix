@@ -2,6 +2,7 @@
   inputs,
   username,
   hostname,
+  desktop,
   ...
 }:
 {
@@ -21,7 +22,14 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs username hostname; };
+    extraSpecialArgs = {
+      inherit
+        inputs
+        username
+        hostname
+        desktop
+        ;
+    };
     backupFileExtension = "backup";
 
     users.${username} = {

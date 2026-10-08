@@ -1,6 +1,4 @@
-{ ... }:
+{ desktop, ... }:
 {
-  imports = [
-    ./cosmic
-  ];
+  imports = [ ./${desktop} ];
 }
