@@ -11,6 +11,15 @@
     # Cosmic Applets
     cosmic-applets-collection.url = "github:wingej0/ext-cosmic-applets-flake";
 
+    # Cosmic Manager
+    cosmic-manager = {
+      url = "github:HeitorAugustoLN/cosmic-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+
     # Sidra Music Player
     sidra = {
       url = "github:wimpysworld/sidra";

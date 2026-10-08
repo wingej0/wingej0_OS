@@ -3,6 +3,7 @@
   imports = [
     ./system
     ./programs
+    ./desktops
   ];
 
   home.file = {
