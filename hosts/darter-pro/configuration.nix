@@ -15,6 +15,7 @@
     ./hardware-configuration.nix
     ./data-drive.nix
     ./displaylink.nix
+    ./hibernation.nix
   ];
 
   networking.hostName = hostname; # Define your hostname.
