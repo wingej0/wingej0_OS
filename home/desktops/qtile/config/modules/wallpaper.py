@@ -1,23 +1,21 @@
+import os
 import random
 from pathlib import Path
 
 from libqtile import qtile
 
-# Same folder and interval as the COSMIC background rotation
+# Same folder as the COSMIC background rotation; changes every 20 minutes
 WALLPAPERS = Path.home() / "Pictures" / "wallpapers"
-INTERVAL = 300
+INTERVAL = 20 * 60
 IMAGE_TYPES = {".jpg", ".jpeg", ".png", ".webp"}
 
-# Remembers the current image, so a config reload keeps it
-STATE = Path.home() / ".cache" / "qtile" / "wallpaper"
+# Link to the current image. A config reload keeps it, and rofi and gtklock
+# use it as their background (home/desktops/qtile/theme.nix).
+LINK = Path.home() / ".cache" / "qtile" / "current_wallpaper"
 
 
 def current():
-    try:
-        path = STATE.read_text().strip()
-    except OSError:
-        return None
-    return path if Path(path).is_file() else None
+    return str(LINK.resolve()) if LINK.is_file() else None
 
 
 def apply():
@@ -30,7 +28,11 @@ def apply():
 def rotate():
     images = [p for p in WALLPAPERS.glob("*") if p.suffix.lower() in IMAGE_TYPES]
     if images:
-        STATE.parent.mkdir(parents=True, exist_ok=True)
-        STATE.write_text(str(random.choice(images)))
+        LINK.parent.mkdir(parents=True, exist_ok=True)
+        # Swap the link in one step, so readers never find it missing
+        tmp = LINK.with_name(LINK.name + ".new")
+        tmp.unlink(missing_ok=True)
+        tmp.symlink_to(random.choice(images))
+        os.replace(tmp, LINK)
         apply()
     qtile.call_later(INTERVAL, rotate)

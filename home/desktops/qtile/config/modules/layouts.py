@@ -7,7 +7,7 @@ from libqtile.config import Match
 layout_theme = {
     "margin": 8,
     "border_width": 4,
-    "border_focus": colors["yellow"],
+    "border_focus": colors["cyan_dark"],
     "border_normal": colors["bg"],
 }
 
@@ -36,6 +36,6 @@ floating_layout = layout.Floating(
     ],
     fullscreen_border_width=0,
     border_width=4,
-    border_focus=colors["yellow"],
+    border_focus=colors["cyan_dark"],
     border_normal=colors["ui3"],
 )

@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 {
-  imports = [ ./scripts.nix ];
+  imports = [
+    ./scripts.nix
+    ./theme.nix
+  ];
 
   # Link ~/.config/qtile straight to the repo, so edits take effect on
   # Super+Shift+r without a rebuild. To pin the config in the store instead,
@@ -74,7 +77,7 @@
     allowImages = true;
   };
 
-  # Notifications; styling comes in a later phase
+  # Notifications; styled in theme.nix
   services.dunst.enable = true;
 
   # Lock before suspend or hibernate, and on `loginctl lock-session`.

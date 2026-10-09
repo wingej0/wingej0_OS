@@ -8,15 +8,15 @@ let
     text = ''
       case "''${1:-}" in
         d)
-          cliphist list | rofi -dmenu -p "Delete" | cliphist delete
+          cliphist list | rofi -dmenu -theme menu -p "Delete" | cliphist delete
           ;;
         w)
-          if [ "$(printf 'Clear\nCancel' | rofi -dmenu -p "Clear history?")" = "Clear" ]; then
+          if [ "$(printf 'Clear\nCancel' | rofi -dmenu -theme menu -p "Clear history?")" = "Clear" ]; then
             cliphist wipe
           fi
           ;;
         *)
-          cliphist list | rofi -dmenu -p "Clipboard" | cliphist decode | wl-copy
+          cliphist list | rofi -dmenu -theme menu -p "Clipboard" | cliphist decode | wl-copy
           ;;
       esac
     '';
@@ -30,7 +30,7 @@ let
       area="Selected area"
       full="Fullscreen (delay 3 sec)"
 
-      choice=$(printf '%s\n%s' "$area" "$full" | rofi -dmenu -i -p "Screenshot") || exit 0
+      choice=$(printf '%s\n%s' "$area" "$full" | rofi -dmenu -theme menu -i -p "Screenshot") || exit 0
 
       case "$choice" in
         "$area")
@@ -81,7 +81,7 @@ let
     text = ''
       if [ "$(cat /sys/class/power_supply/AC/online)" = "1" ]; then
         current=$(system76-power charge-thresholds | awk -F': ' '/Profile/{print $2}')
-        choice=$(printf 'Full Charge\nBalanced\nMax Lifespan' | rofi -dmenu -i -p "Charge ($current)") || exit 0
+        choice=$(printf 'Full Charge\nBalanced\nMax Lifespan' | rofi -dmenu -theme menu -i -p "Charge ($current)") || exit 0
         case "$choice" in
           "Full Charge") system76-power charge-thresholds --profile full_charge ;;
           "Balanced") system76-power charge-thresholds --profile balanced ;;
@@ -91,7 +91,7 @@ let
         notify-send "Charge threshold" "$choice"
       else
         current=$(system76-power profile | awk '/Power Profile/{print $NF}')
-        choice=$(printf 'Battery\nBalanced\nPerformance' | rofi -dmenu -i -p "Power ($current)") || exit 0
+        choice=$(printf 'Battery\nBalanced\nPerformance' | rofi -dmenu -theme menu -i -p "Power ($current)") || exit 0
         case "$choice" in
           Battery | Balanced | Performance) system76-power profile "''${choice,,}" ;;
           *) exit 0 ;;

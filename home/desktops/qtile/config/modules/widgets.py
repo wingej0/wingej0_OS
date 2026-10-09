@@ -18,8 +18,8 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 
-# Rounded pills behind groups of widgets: dark with light text, light with
-# dark text, and an accent
+# Rounded pills behind groups of widgets: cyan with light text, light with
+# dark text, and a dark accent
 def pill(colour):
     return {
         "decorations": [
@@ -28,9 +28,9 @@ def pill(colour):
     }
 
 
-dark = pill(colors["ui2"])
+dark = pill(colors["cyan_dark"])
 light = pill(colors["tx"])
-accent = pill(colors["cyan_dark"])
+accent = pill(colors["ui2"])
 
 
 def gap():
