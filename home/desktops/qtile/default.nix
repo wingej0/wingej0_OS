@@ -81,12 +81,12 @@
   services.dunst.enable = true;
 
   # Lock before suspend or hibernate, and on `loginctl lock-session`.
-  # -w makes swayidle wait for gtklock to fork before letting the system sleep.
+  # -w makes swayidle wait for swaylock to lock before letting the system sleep.
   services.swayidle = {
     enable = true;
     events = {
-      before-sleep = "${pkgs.gtklock}/bin/gtklock -d";
-      lock = "${pkgs.gtklock}/bin/gtklock -d";
+      before-sleep = "${config.programs.swaylock.package}/bin/swaylock -f";
+      lock = "${config.programs.swaylock.package}/bin/swaylock -f";
     };
   };
 }

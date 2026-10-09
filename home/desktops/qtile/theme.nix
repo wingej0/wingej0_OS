@@ -6,7 +6,7 @@ let
   # Kept current by config/modules/wallpaper.py
   wallpaper = "${config.home.homeDirectory}/.cache/qtile/current_wallpaper";
 
-  # Rofi pieces shared by the launcher and the menu
+  # Rofi pieces shared by the launcher and the menu. Translucent like dunst.
   rofiCommon = ''
     * {
       background-color: transparent;
@@ -17,7 +17,7 @@ let
       border: 3px;
       border-color: ${c.cyan_dark};
       border-radius: 10px;
-      background-color: ${c.bg};
+      background-color: ${c.bg2}E6;
       transparency: "real";
       cursor: "default";
     }
@@ -26,7 +26,7 @@ let
       spacing: 10px;
       padding: 15px;
       border-radius: 10px;
-      background-color: ${c.bg2};
+      background-color: ${c.ui}99;
       children: [ "prompt", "entry" ];
     }
 
@@ -47,7 +47,7 @@ let
       fixed-columns: true;
       spacing: 0px;
       padding: 10px;
-      background-color: ${c.bg};
+      background-color: transparent;
     }
 
     element {
@@ -82,7 +82,7 @@ let
     error-message {
       padding: 15px;
       border-radius: 10px;
-      background-color: ${c.bg2};
+      background-color: ${c.ui}99;
     }
   '';
 in
@@ -138,7 +138,7 @@ in
     listbox {
       spacing: 20px;
       orientation: vertical;
-      background-color: ${c.bg};
+      background-color: ${c.bg2}E6;
       children: [ "message", "listview" ];
     }
 
@@ -153,7 +153,7 @@ in
     button {
       padding: 10px;
       border-radius: 10px;
-      background-color: ${c.bg2};
+      background-color: ${c.ui}99;
       cursor: pointer;
     }
 
@@ -276,62 +276,55 @@ in
     };
   };
 
-  # Lock screen over the current wallpaper. The password box stays hidden
-  # until a key is pressed, and hides again after 15 seconds idle.
-  xdg.configFile."gtklock/config.ini".text = ''
-    [main]
-    background=${wallpaper}
-    time-format=%H:%M
-    idle-hide=true
-    idle-timeout=15
-    start-hidden=true
-  '';
+  # Lock screen over the current wallpaper. swaylock rather than gtklock:
+  # Qtile gives keyboard focus to the lock surface on the focused screen,
+  # and gtklock only reads the password on its one form window, so with
+  # just the dock's monitors typing often went nowhere. swaylock takes keys
+  # on any of its surfaces. The -effects fork adds the clock.
+  programs.swaylock = {
+    enable = true;
+    package = pkgs.swaylock-effects;
+    settings = let hex = lib.removePrefix "#"; in {
+      image = wallpaper;
+      scaling = "fill";
+      clock = true;
+      timestr = "%H:%M";
+      datestr = "%a %b %-d";
+      font = font;
+      font-size = 28;
+      indicator = true;
+      indicator-radius = 110;
+      indicator-thickness = 8;
+      ignore-empty-password = true;
+      show-failed-attempts = true;
 
-  xdg.configFile."gtklock/style.css".text = ''
-    window {
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-
-    #clock-label {
-      font-family: "${font}";
-      font-size: 96px;
-      color: ${c.tx};
-      text-shadow: 0 0 10px alpha(${c.bg}, 0.8);
-    }
-
-    #body {
-      font-family: "${font}";
-    }
-
-    entry {
-      font-family: "${font}";
-      font-size: 16px;
-      color: ${c.tx};
-      background: alpha(${c.bg2}, 0.85);
-      border: 2px solid ${c.cyan_dark};
-      border-radius: 10px;
-      box-shadow: none;
-      padding: 6px 12px;
-    }
-
-    button {
-      color: ${c.tx};
-      background: alpha(${c.bg2}, 0.85);
-      border: 2px solid ${c.ui3};
-      border-radius: 10px;
-      box-shadow: none;
-    }
-
-    button:hover {
-      border-color: ${c.cyan_dark};
-    }
-
-    #error-label {
-      color: ${c.red};
-    }
-  '';
+      inside-color = "${hex c.bg2}D9";
+      inside-clear-color = "${hex c.bg2}D9";
+      inside-ver-color = "${hex c.bg2}D9";
+      inside-wrong-color = "${hex c.bg2}D9";
+      inside-caps-lock-color = "${hex c.bg2}D9";
+      ring-color = hex c.cyan_dark;
+      ring-clear-color = hex c.yellow;
+      ring-ver-color = hex c.blue;
+      ring-wrong-color = hex c.red;
+      ring-caps-lock-color = hex c.orange;
+      key-hl-color = hex c.cyan;
+      bs-hl-color = hex c.orange;
+      caps-lock-key-hl-color = hex c.cyan;
+      caps-lock-bs-hl-color = hex c.orange;
+      text-color = hex c.tx;
+      text-clear-color = hex c.tx;
+      text-ver-color = hex c.tx;
+      text-wrong-color = hex c.red;
+      text-caps-lock-color = hex c.orange;
+      line-color = "00000000";
+      line-clear-color = "00000000";
+      line-ver-color = "00000000";
+      line-wrong-color = "00000000";
+      line-caps-lock-color = "00000000";
+      separator-color = "00000000";
+    };
+  };
 
   # Power menu (the bar's clock). Suspend and hibernate don't lock here:
   # swayidle's before-sleep hook does that.
@@ -377,9 +370,16 @@ in
     ];
     style =
       let
+        # The package's white icons, tinted cyan (alpha kept)
+        icons = pkgs.runCommand "wlogout-icons-cyan" { nativeBuildInputs = [ pkgs.imagemagick ]; } ''
+          mkdir $out
+          for f in ${pkgs.wlogout}/share/wlogout/icons/*.png; do
+            magick "$f" -fill "${c.cyan}" -colorize 100 "$out/$(basename "$f")"
+          done
+        '';
         icon = name: ''
           #${name} {
-            background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/${name}.png"));
+            background-image: image(url("${icons}/${name}.png"));
           }
         '';
       in

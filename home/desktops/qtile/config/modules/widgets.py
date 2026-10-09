@@ -1,4 +1,6 @@
+import os
 import subprocess
+import time
 
 from libqtile.lazy import lazy
 from qtile_extras import widget
@@ -66,6 +68,16 @@ def power_profile():
             # "Full Charge (full_charge)" -> "Full Charge"
             return value.split(" (")[0]
     return ""
+
+
+def flake_age():
+    # Days since flake.lock last changed, i.e. since the last `nix flake update`
+    try:
+        modified = os.path.getmtime(os.path.expanduser("~/.dotfiles/flake.lock"))
+    except OSError:
+        return ""
+    days = int((time.time() - modified) // 86400)
+    return f"{days} day" if days == 1 else f"{days} days"
 
 
 def init_widgets():
@@ -157,6 +169,13 @@ def init_widgets():
             scroll=True,
             foreground=fg_light,
         ),
+        gap(),
+
+        # Days since flake.lock was updated
+        edge(accent),
+        icon("\uf021", accent, fg_light),
+        widget.GenPollText(func=flake_age, update_interval=600, foreground=fg_light, **accent),
+        edge(accent),
         gap(),
 
         # Battery and power profile; click to change it

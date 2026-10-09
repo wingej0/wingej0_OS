@@ -31,8 +31,8 @@
   # The qtile module already enables gnome-keyring.
   security.pam.services.greetd.enableGnomeKeyring = true;
 
-  # Lock screen; also sets up PAM so it can unlock
-  programs.gtklock.enable = true;
+  # PAM entry so swaylock (home/desktops/qtile/theme.nix) can unlock
+  security.pam.services.swaylock = { };
 
   # Thunar with its thumbnailer, trash and removable drive support
   programs.thunar.enable = true;
@@ -43,16 +43,24 @@
   programs.xwayland.enable = true;
   programs.dconf.enable = true;
 
-  # Portals: wlr for screen sharing and screenshots, gtk for everything else.
+  # Portals: wlr for screen sharing and screenshots, gnome for settings, gtk
+  # for everything else. Settings ask the accent portal first, which gives
+  # Electron apps (Mailspring) the exact Flexoki cyan as their accent; gnome
+  # answers the rest from dconf (home/desktops/qtile/theme.nix).
   # XDG_CURRENT_DESKTOP is "qtile:wlroots", so qtile-portals.conf is used.
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-wlr
       xdg-desktop-portal-gtk
+      xdg-desktop-portal-gnome
+      (callPackage ./qtile-accent-portal.nix {
+        accent = (import ../../home/desktops/qtile/colors.nix).cyan;
+      })
     ];
     config.qtile = {
       default = [ "gtk" ];
+      "org.freedesktop.impl.portal.Settings" = [ "accent" "gnome" ];
       "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
       "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
     };

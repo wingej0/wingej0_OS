@@ -1,6 +1,7 @@
 from libqtile.config import Click, Drag, Key
 from libqtile.lazy import lazy
 
+from . import wallpaper
 from .groups import groups
 
 mod = "mod4"
@@ -206,8 +207,10 @@ keys.extend([
 keys.extend([
     Key([mod, "shift"], "r", lazy.reload_config(),
         desc="Reload Qtile config"),
-    Key([mod], "Escape", lazy.spawn("gtklock -d"),
+    Key([mod], "Escape", lazy.spawn("loginctl lock-session"),
         desc="Lock screen"),
+    Key([mod], "w", lazy.function(lambda _: wallpaper.rotate()),
+        desc="Next wallpapers"),
 ])
 
 # Scripts from home/desktops/qtile/scripts.nix
