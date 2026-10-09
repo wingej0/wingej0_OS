@@ -62,6 +62,7 @@
 
   environment.systemPackages = with pkgs; [
     rofi
+    wlogout
     wl-clipboard
     wlr-randr
     wdisplays

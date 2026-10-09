@@ -209,3 +209,17 @@ keys.extend([
     Key([mod], "Escape", lazy.spawn("gtklock -d"),
         desc="Lock screen"),
 ])
+
+# Scripts from home/desktops/qtile/scripts.nix
+keys.extend([
+    Key([mod], "v", lazy.spawn("qtile-clipboard"),
+        desc="Clipboard history"),
+    Key([mod, "shift"], "v", lazy.spawn("qtile-clipboard d"),
+        desc="Delete a clipboard entry"),
+    Key([], "Print", lazy.spawn("qtile-screenshot"),
+        desc="Screenshot"),
+    Key([mod], "Print", lazy.spawn("qtile-gif-recorder"),
+        desc="Start/stop GIF recording"),
+    Key([mod, "shift"], "p", lazy.spawn("qtile-power"),
+        desc="Power profile or charge threshold"),
+])

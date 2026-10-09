@@ -6,6 +6,7 @@ from modules.keys import keys, mod, mouse
 from modules.layouts import layouts, floating_layout
 from modules.screens import screens
 from modules.scratchpads import *
+from modules.widgets import widget_defaults, extension_defaults
 
 from libqtile.backend.wayland import InputConfig
 
