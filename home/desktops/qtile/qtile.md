@@ -151,6 +151,9 @@ The entry point for your user's Qtile config. It imports `scripts.nix` and
   match.
   - `docked`: laptop screen off, the two MSI monitors side by side at y = 0,
     the ASM portable monitor centred underneath (x = 960, y = 1080).
+  - `home`: the DisplayLink dock at home. Laptop screen off, the two Acer
+    KB220Q monitors side by side (the one on the dock's HDMI port on the
+    left, the one on DisplayLink's DVI-I-1 on the right).
   - `undocked`: only `eDP-1` (the laptop panel).
   - Monitors are matched by make, model and serial number, not by connector
     name, because DisplayLink's `DP-5`/`DP-6`/`DP-7` names can change between

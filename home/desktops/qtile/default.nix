@@ -55,6 +55,26 @@
         ];
       }
       {
+        # Home DisplayLink dock: the two Acers side by side, laptop screen off
+        profile.name = "home";
+        profile.outputs = [
+          {
+            criteria = "eDP-1";
+            status = "disable";
+          }
+          {
+            criteria = "Acer Technologies KB220Q H2 260600CDD5B00";
+            mode = "1920x1080@60Hz";
+            position = "0,0";
+          }
+          {
+            criteria = "Acer Technologies KB220Q H2 260600CE95B00";
+            mode = "1920x1080@60Hz";
+            position = "1920,0";
+          }
+        ];
+      }
+      {
         profile.name = "undocked";
         profile.outputs = [
           {
