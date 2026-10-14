@@ -5,6 +5,7 @@
     libreoffice
     evince
     anytype
-    apostrophe
+    (callPackage ../pkgs/bibisco.nix { })
+    # apostrophe
   ];
 }

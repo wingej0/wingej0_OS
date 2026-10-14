@@ -1,0 +1,28 @@
+--- a/libqtile/backend/wayland/qw/output.c
++++ b/libqtile/backend/wayland/qw/output.c
+@@ -173,7 +173,9 @@
+         }
+     }
+ 
+-    wlr_output_commit_state(wlr_output, &state);
++    if (!wlr_output_commit_state(wlr_output, &state)) {
++        wlr_log(WLR_ERROR, "Failed to enable new output %s", wlr_output->name);
++    }
+     wlr_output_state_finish(&state);
+ 
+     wlr_output->data = output;
+@@ -205,6 +207,14 @@
+         wlr_scene_rect_create(server->scene_windows_layers[LAYER_FULLSCREEN], 0, 0, black);
+     wlr_scene_node_set_enabled(&output->fullscreen_background->node, false);
+ 
++    // A failed commit leaves the output disabled. Adding it to the layout would
++    // fire the layout change handler, which removes disabled outputs and frees
++    // the layout entry before wlroots emits its add signal with it. The output
++    // joins the layout later, when an output manager (kanshi) enables it.
++    if (!wlr_output->enabled) {
++        return;
++    }
++
+     // Add the output to the output layout automatically and to the scene layout
+     struct wlr_output_layout_output *l_output =
+         wlr_output_layout_add_auto(server->output_layout, wlr_output);

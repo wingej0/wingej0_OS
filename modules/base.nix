@@ -15,5 +15,6 @@
     bat
     ripgrep
     dust
+    rclone
   ];
 }

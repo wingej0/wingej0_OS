@@ -4,6 +4,11 @@
   # a Wayland session; tuigreet only lists the Wayland one.
   services.xserver.windowManager.qtile = {
     enable = true;
+    # Plugging in a dock segfaulted Qtile (back to the greeter) when a new
+    # monitor failed its first modeset; see the patch for details.
+    package = pkgs.python3Packages.qtile.overrideAttrs (old: {
+      patches = (old.patches or [ ]) ++ [ ./qtile-output-hotplug.patch ];
+    });
     extraPackages = python3Packages: with python3Packages; [ qtile-extras ];
   };
 

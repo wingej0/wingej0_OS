@@ -5,6 +5,9 @@
     en-croissant
     stockfish
     lc0
-    retroarch # This will likely need to move to home-manager
+    dolphin-emu
   ];
+
+  # Lets Dolphin access GameCube controller adapters and Wii Remotes without root
+  services.udev.packages = [ pkgs.dolphin-emu ];
 }

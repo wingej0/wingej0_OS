@@ -67,6 +67,14 @@ than Home Manager.
   session. Despite the `xserver` in the name, this also provides the Wayland
   session. `extraPackages` adds **qtile-extras** to Qtile's Python, which is
   where the bar's `RectDecoration` pills and some widgets come from.
+  `package` swaps in Qtile with one local patch, `qtile-output-hotplug.patch`.
+  Without it, plugging in a dock crashed Qtile and dropped you back to the
+  greeter. When a new monitor's first modeset fails (common while a dock's
+  outputs are all coming up at once), stock Qtile still adds the monitor to
+  its layout, and its own layout-change handler frees that monitor's layout
+  entry halfway through. The patch leaves a monitor that failed to turn on out of
+  the layout until kanshi enables it. Remove the patch once upstream fixes this:
+  the code is in `libqtile/backend/wayland/qw/output.c`, `qw_server_output_new`.
 - **`services.greetd`**: the login manager. It runs **tuigreet**, a text-mode
   greeter. `--remember` and `--remember-user-session` mean it pre-fills your
   username and last session. `--sessions` points it at the Wayland session list
