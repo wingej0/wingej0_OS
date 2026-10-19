@@ -51,8 +51,8 @@ instead. Only one desktop is in the system at a time.
 5. **kanshi** sees which monitors are connected and applies the `docked` or
    `undocked` layout. Qtile notices the screen change, fires
    `screens_reconfigured`, and the hook re-applies the wallpaper.
-6. When you exit Qtile, the `shutdown` hook stops `qtile-session.target`, which
-   stops those services again.
+6. When you exit Qtile, the `shutdown` hook stops `qtile-session.target` and
+   `graphical-session.target`, which stops those services again.
 
 ---
 
@@ -152,8 +152,10 @@ The entry point for your user's Qtile config. It imports `scripts.nix` and
   on) are set to start with `graphical-session.target`. Full desktops like
   GNOME start that target for you; Qtile doesn't. So this defines
   `qtile-session.target`, which `BindsTo` `graphical-session.target`. Starting
-  it (from the hook) starts the graphical session and all its services;
-  stopping it stops them.
+  it (from the hook) starts the graphical session and all its services.
+  Stopping it isn't enough to stop them: kanshi's unit `Requires`
+  `graphical-session.target`, which keeps it running. So the shutdown hook
+  stops `graphical-session.target` too.
 - **`services.kanshi`**: automatic monitor layouts. kanshi watches which
   monitors are connected and applies the first profile whose outputs all
   match.
@@ -455,8 +457,11 @@ Functions that Qtile calls when something happens:
   rotation.
 - **`screens_reconfigured`**: when monitors change (kanshi, plugging in the
   dock), give every screen its wallpaper; new screens get a random one.
-- **`shutdown`**: stop `qtile-session.target`, so the services don't keep
-  running after you log out.
+- **`shutdown`**: stop `qtile-session.target` and `graphical-session.target`,
+  so the services don't keep running after you log out. Without the second
+  one, swayidle, cliphist and polkit restart over and over with no compositor
+  until systemd stops trying, and they stay dead after you log back in (no
+  lock screen).
 
 ### `modules/wallpaper.py`
 

@@ -27,4 +27,9 @@ def screens_changed():
 
 @hook.subscribe.shutdown
 def stop_session():
-    subprocess.run(["systemctl", "--user", "stop", "qtile-session.target"])
+    # Stop graphical-session.target too: kanshi's Requires= keeps it up after
+    # qtile-session.target stops, and then swayidle, cliphist and polkit keep
+    # restarting with no compositor until systemd gives up on them for good.
+    subprocess.run([
+        "systemctl", "--user", "stop", "qtile-session.target", "graphical-session.target",
+    ])
