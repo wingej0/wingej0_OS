@@ -6,5 +6,7 @@
 
   environment.systemPackages = with pkgs; [
     system76-firmware
+    # Remap the Launch keyboard's firmware layout (stored on the keyboard)
+    system76-keyboard-configurator
   ];
 }

@@ -9,7 +9,12 @@
     package = pkgs.python3Packages.qtile.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [ ./qtile-output-hotplug.patch ];
     });
-    extraPackages = python3Packages: with python3Packages; [ qtile-extras ];
+    # TEMPORARY (2026-10-20): qtile-extras 0.37.1 isn't cached for nixpkgs
+    # 09063bd1 and its test suite collects 0 tests locally (pytest exit 5).
+    # Drop the override once it's cached again.
+    extraPackages = python3Packages: [
+      (python3Packages.qtile-extras.overridePythonAttrs { doCheck = false; })
+    ];
   };
 
   # Login with tuigreet

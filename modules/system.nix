@@ -7,6 +7,28 @@
   # Kernel
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
+  # TEMPORARY: nixpkgs 6bd75267 makes aggregateModules cat a .ko.cer for every
+  # external module, but system76, system76-io and evdi install their .ko by
+  # hand and ship none, so the modules build fails. Skip missing certs until
+  # the packages are fixed (NixOS/nixpkgs#575192; system76: #575724).
+  # The assert fails loudly once upstream changes the line, so this can't go stale silently.
+  nixpkgs.overlays = [
+    (final: prev: {
+      aggregateModules =
+        modules:
+        (prev.aggregateModules modules).override {
+          buildEnv =
+            args:
+            let
+              from = "| xargs -d'\\n' cat >> modules.cer";
+              to = ''| while read -r f; do if [ -e "$f" ]; then cat "$f"; fi; done >> modules.cer'';
+            in
+            assert prev.lib.hasInfix from args.postBuild;
+            prev.buildEnv (args // { postBuild = builtins.replaceStrings [ from ] [ to ] args.postBuild; });
+        };
+    })
+  ];
+
   # Set default sleep state to deep sleep
   boot.kernelParams = [ "mem_sleep_default=deep" ];
 
@@ -66,6 +88,8 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  # GUI print manager (add/configure printers, manage queues) for every desktop
+  programs.system-config-printer.enable = true;
   services.avahi = {
     enable = true;
     nssmdns4 = true;

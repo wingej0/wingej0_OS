@@ -20,7 +20,7 @@
       '';
     })
     mpv
-    audacity
+    # audacity
     gimp
     annotator
     ffmpeg

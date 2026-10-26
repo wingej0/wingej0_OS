@@ -6,6 +6,6 @@
     evince
     anytype
     (callPackage ../pkgs/bibisco.nix { })
-    # apostrophe
+    folio
   ];
 }
