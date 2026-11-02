@@ -13,6 +13,5 @@
   environment.systemPackages = with pkgs; [
     cosmic-ext-tweaks
     inputs.cosmic-applets-collection.packages."${pkgs.stdenv.hostPlatform.system}".default
-    (callPackage ../../pkgs/signpost.nix { })
   ];
 }
