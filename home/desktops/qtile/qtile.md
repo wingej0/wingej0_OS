@@ -67,7 +67,8 @@ than Home Manager.
   session. Despite the `xserver` in the name, this also provides the Wayland
   session. `extraPackages` adds **qtile-extras** to Qtile's Python, which is
   where the bar's `RectDecoration` pills and some widgets come from.
-  `package` swaps in Qtile with one local patch, `qtile-output-hotplug.patch`.
+  `package` swaps in Qtile with two local patches. The first is
+  `qtile-output-hotplug.patch`.
   Without it, plugging in a dock crashed Qtile and dropped you back to the
   greeter. When a new monitor's first modeset fails (common while a dock's
   outputs are all coming up at once), stock Qtile still adds the monitor to
@@ -75,6 +76,14 @@ than Home Manager.
   entry halfway through. The patch leaves a monitor that failed to turn on out of
   the layout until kanshi enables it. Remove the patch once upstream fixes this:
   the code is in `libqtile/backend/wayland/qw/output.c`, `qw_server_output_new`.
+  The second is `qtile-current-output-disabled.patch`. Qtile finds the current
+  output by matching the Screen's x and y, and a disabled output keeps its last
+  position. With the laptop panel booted at 0,0 and then disabled by kanshi, a
+  notification sent while the monitor at 0,0 had focus went to the disabled
+  panel and never appeared. Dunst keeps reusing that stuck surface, so every
+  later notification was invisible too, on any monitor, until dunst restarted.
+  The patch skips disabled outputs. Remove it once upstream fixes this: the code
+  is in `libqtile/backend/wayland/qw/server.c`, `qw_server_get_current_output`.
 - **`services.greetd`**: the login manager. It runs **tuigreet**, a text-mode
   greeter. `--remember` and `--remember-user-session` mean it pre-fills your
   username and last session. `--sessions` points it at the Wayland session list

@@ -6,8 +6,13 @@
     enable = true;
     # Plugging in a dock segfaulted Qtile (back to the greeter) when a new
     # monitor failed its first modeset; see the patch for details.
+    # With the laptop panel disabled, notifications on the monitor at its old
+    # position never appeared; see the second patch.
     package = pkgs.python3Packages.qtile.overrideAttrs (old: {
-      patches = (old.patches or [ ]) ++ [ ./qtile-output-hotplug.patch ];
+      patches = (old.patches or [ ]) ++ [
+        ./qtile-output-hotplug.patch
+        ./qtile-current-output-disabled.patch
+      ];
     });
     # TEMPORARY (2026-10-20): qtile-extras 0.37.1 isn't cached for nixpkgs
     # 09063bd1 and its test suite collects 0 tests locally (pytest exit 5).

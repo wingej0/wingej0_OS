@@ -47,11 +47,11 @@
             mode = "1920x1080@60Hz";
             position = "1920,0";
           }
-          {
-            criteria = "ASEM S.p.A. ASM-156UC *";
-            mode = "1920x1080@60Hz";
-            position = "960,1080";
-          }
+          # {
+          #   criteria = "ASEM S.p.A. ASM-156UC *";
+          #   mode = "1920x1080@60Hz";
+          #   position = "960,1080";
+          # }
         ];
       }
       {

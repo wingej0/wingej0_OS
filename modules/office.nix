@@ -7,5 +7,6 @@
     anytype
     (callPackage ../pkgs/bibisco.nix { })
     folio
+    pdfarranger
   ];
 }

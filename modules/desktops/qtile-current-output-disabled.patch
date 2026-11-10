@@ -1,0 +1,15 @@
+--- a/libqtile/backend/wayland/qw/server.c
++++ b/libqtile/backend/wayland/qw/server.c
+@@ -1298,7 +1298,11 @@
+     wl_list_for_each(output, &server->outputs, link) {
+         // Outputs alias if they have the same (x, y) and share the same Screen, so
+         // we don't need to check the if the width and height match the Screen's.
+-        if (output->x == current_output.x && output->y == current_output.y) {
++        // A disabled output keeps its last position, so it can match a live Screen
++        // at those coordinates. Layer surfaces assigned to it are never configured,
++        // so they stay unmapped.
++        if (output->wlr_output->enabled && output->x == current_output.x &&
++            output->y == current_output.y) {
+             return output->wlr_output;
+         }
+     }

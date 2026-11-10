@@ -115,4 +115,8 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # gtk2 is marked broken ahead of its removal in NixOS 27.05 (nixpkgs #410814).
+  # onlyoffice-desktopeditors still bundles it in its FHS env; drop this once it migrates.
+  nixpkgs.config.problems.handlers."gtk+".broken = "warn";
 }
