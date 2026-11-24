@@ -47,11 +47,47 @@
             mode = "1920x1080@60Hz";
             position = "1920,0";
           }
-          # {
-          #   criteria = "ASEM S.p.A. ASM-156UC *";
-          #   mode = "1920x1080@60Hz";
-          #   position = "960,1080";
-          # }
+          {
+            criteria = "ASEM S.p.A. ASM-156UC *";
+            mode = "1920x1080@60Hz";
+            position = "960,1080";
+          }
+        ];
+      }
+      {
+        # Desk dock while it is still bringing monitors up (the ASM plus at
+        # most one MSI). Qtile turns a new monitor on at its preferred mode,
+        # and the ASM's preferred 4K uses enough of the dock's link that
+        # the next MSI fails to turn on ("Swapchain ... failed test") and
+        # `docked` never matches. Dropping the ASM to 1080p here leaves room.
+        profile.name = "docked-partial";
+        profile.outputs = [
+          {
+            criteria = "eDP-1";
+            status = "enable";
+          }
+          {
+            criteria = "ASEM S.p.A. ASM-156UC *";
+            mode = "1920x1080@60Hz";
+          }
+        ];
+      }
+      {
+        profile.name = "docked-partial-msi";
+        profile.outputs = [
+          {
+            criteria = "eDP-1";
+            status = "enable";
+          }
+          {
+            criteria = "ASEM S.p.A. ASM-156UC *";
+            mode = "1920x1080@60Hz";
+          }
+          {
+            # either MSI
+            criteria = "*";
+            status = "enable";
+          }
         ];
       }
       {

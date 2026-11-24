@@ -16,6 +16,7 @@
       "networkmanager"
       "wheel"
       "libvirtd"
+      "kvm" # Claude Desktop Cowork (/dev/kvm, /dev/vhost-vsock)
     ];
   };
 

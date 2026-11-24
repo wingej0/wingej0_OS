@@ -170,6 +170,12 @@ The entry point for your user's Qtile config. It imports `scripts.nix` and
   match.
   - `docked`: laptop screen off, the two MSI monitors side by side at y = 0,
     the ASM portable monitor centred underneath (x = 960, y = 1080).
+  - `docked-partial` / `docked-partial-msi`: the desk dock part-way through
+    bringing its monitors up (laptop panel + the ASM, with or without one
+    MSI). They only set the ASM to 1080p. Qtile turns each new monitor on at
+    its preferred mode, and the ASM's preferred 4K takes so much of the
+    dock's link that the next MSI can fail to turn on (`Swapchain for output
+    'DP-7' failed test` in the Qtile log), so `docked` never matches.
   - `home`: the DisplayLink dock at home. Laptop screen off, the two Acer
     KB220Q monitors side by side (the one on the dock's HDMI port on the
     left, the one on DisplayLink's DVI-I-1 on the right).

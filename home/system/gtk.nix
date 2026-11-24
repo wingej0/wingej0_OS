@@ -14,7 +14,8 @@ in
   # Cursor theme (replaces environment.d, gtk settings.ini and .Xresources)
   home.pointerCursor = {
     enable = true;
-    package = pkgs.bibata-cursors;
+    # Adds the SVG cursors that GNOME Shell 51+ needs
+    package = pkgs.callPackage ../../pkgs/bibata-cursors-scalable.nix { };
     name = "Bibata-Modern-Classic";
     size = 24;
     gtk.enable = true;
